@@ -1,0 +1,11 @@
+%nav{:class => "navbar navbar-expand-lg navbar-light bg-#{color} opacity header-wrapper"}
+  %h3.navbar-brand.font-text.heartbeat= header_text
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item
+    - if user_signed_in?
+      = render "shared/header/#{current_user.role}_header"
+    - else
+      = link_to button_text, button_path, class: "btn btn-outline-primary sign-up-button rounded-circle"

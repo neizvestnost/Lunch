@@ -1,0 +1,16 @@
+= header(                |
+    header_text: "Menu", |
+    color: "info",       |
+  )                      |
+.container-additional-style.slide-in-elliptic-top-bck
+  .container-fluid.rounded.mt-2
+    %nav
+      #nav-tab.nav.nav-tabs.nav-fill{:role => "tablist"}
+        - Menus::IndexFacade::WEEKDAYS.times.each do |iterator|
+          %li.nav-item
+            = day_name_link(iterator: iterator, klass: 'nav-item nav-link menus')
+    #pills-tabContent.tab-content
+      = render(                       |
+          "order_form",               |
+          menus_facade: @menus_facade |
+        )                             |

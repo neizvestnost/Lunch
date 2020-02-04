@@ -1,0 +1,45 @@
+<div class="card p-3" data-section="replace-users">
+  <h5 class="card-header">Users</h5>
+  {{#each users}}  
+    <div class="card mt-3 mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{this.name}}</h5>
+        <p class="card-text">{{this.email}}</p>
+        <p class="card-text"><small class="text-muted">Last sign in at {{this.last_sign_in_at}}</small></p>
+      </div>
+    </div>
+  {{/each}}
+  <nav aria-label="pager" class="pagy-bootstrap-nav pagination" role="navigation">
+    <ul class="pagination">
+    {{#if pagy.prev}}
+      <li class="page-item users-link prev">
+        <a href={{pagy.prev_url}} class="page-link">‹ Prev</a>
+      </li>
+    {{else}}
+      <li class="page-item users-link prev disabled">
+        <a href="#" class="page-link">‹ Prev</a>
+      </li>
+    {{/if}}
+
+    {{#each pagy.series}}
+      {{#if (isInteger this)}}
+        <li class="page-item users-link">
+          <a href="users?page={{this}}" class="page-link">{{this}}</a>
+        </li>
+      {{else if (isString this)}}
+        <li class="page-item users-link active">
+          <a href="users?page={{this}}" class="page-link">{{this}}</a>
+        </li>
+      {{/if}}
+    {{/each}}
+    
+    {{#if pagy.next}}
+      <li class="page-item users-link next">
+        <a href={{pagy.next_url}} class="page-link">Next ›</a>
+      </li>
+    {{else}}
+      <li class="page-item users-link next disabled"><a href="#" class="page-link">Next ›</a></li>
+    {{/if}}
+    </ul>
+  </nav>
+</div>

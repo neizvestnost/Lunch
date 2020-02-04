@@ -1,0 +1,32 @@
+= header(                  |
+    header_text: "Orders", |
+    color: "dark"          |
+  )                        |
+.d-flex.justify-content-around.container-fluid
+  - if Time.zone.today.on_weekday?
+    %div
+      = render(                                                |
+          "orders",                                            |
+          orders_facade: @orders_facade,                       |
+          collection: @orders_facade.decorated_orders_for_day, |
+          html_class: "w-25 mt-2",                             |
+          data_attribute: "no-replace",                        |
+          show_cost: true                                      |
+        )                                                      |
+  .mt-2.w-50
+    .container-fluid.rounded.mt-2.container-table-wrapper
+      %nav
+        #nav-tab.nav.nav-tabs.nav-fill{:role => "tablist"}
+          - Menus::IndexFacade::WEEKDAYS.times.each do |iterator|
+            %li.nav-item
+              = day_name_link(iterator: iterator)
+      #pills-tabContent.tab-content
+        #pills-monday.tab-pane.fade.show.active.days-table-wrapper{"aria-labelledby" => "pills-monday-tab", :role => "tabpanel"}
+          = render(                                                              |
+              "orders",                                                          |
+              orders_facade: @orders_facade,                                     |
+              collection: @orders_facade.decorated_and_paginated_orders_for_day, |
+              html_class: "w-100",                                               |
+              data_attribute: "replace-orders",                                  |
+              show_cost: false                                                   |
+            )                                                                    |

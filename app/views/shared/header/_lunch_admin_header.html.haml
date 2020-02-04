@@ -1,0 +1,12 @@
+.font-text
+  Api token #{current_user.api_token}
+.dropdown
+  %button.btn.btn-transparent.dropdown-toggle.font-text.mr-2{"data-toggle" => "dropdown", :type => "button"}
+    = current_user.email
+  .dropdown-menu
+    = link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item"
+    = link_to 'Menus', menus_path, class: "dropdown-item"
+    = link_to "Add items in menu", new_menu_path, class: "dropdown-item"
+    = link_to 'Users', users_path, class: "dropdown-item"
+    = link_to 'Orders', orders_path, class: "dropdown-item"
+= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-warning my-2 my-sm-0 rounded-circle"

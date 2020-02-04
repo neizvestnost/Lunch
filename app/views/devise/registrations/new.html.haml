@@ -1,0 +1,29 @@
+= header(                              |
+    header_text: "Sign up",            |
+    color: "success",                  |
+    button_text: "Sign in",            |
+    button_path: new_user_session_path |
+  )                                    |
+.container
+  .row
+    .col-sm-9.col-md-7.col-lg-5.mx-auto
+      .card.card-signin.my-5
+        .card-body
+          %h5.card-title.text-center Sign up
+          .container.d-flex.justify-content-center.align-items-center
+            = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+              .form-label-group
+                = f.text_field :name, class: "form-control"
+                = f.label :name
+              .form-label-group
+                = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+                = f.label :email
+                - if resource.errors.messages[:email].present?
+                  = render "devise/shared/error_messages", errors: resource.errors.full_messages_for(:email)
+              .form-label-group
+                = f.password_field :password, autocomplete: "new-password", class: "form-control"
+                = f.label :password
+                - if resource.errors.messages[:password].present?
+                  = render "devise/shared/error_messages", errors: resource.errors.full_messages_for(:password)
+              .actions
+                = f.submit "GO", class: "btn btn-lg btn-primary btn-block text-uppercase roll-in-left"
