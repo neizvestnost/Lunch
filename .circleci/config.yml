@@ -1,0 +1,72 @@
+version: 2.1 
+jobs: 
+  build:
+    docker: 
+      - image: circleci/ruby:2.6.1-node-browsers
+        environment: 
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+
+      - image: circleci/postgres:11.5-alpine
+        environment:
+          POSTGRES_USER: postgres
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install yarn
+          command: | 
+            sudo apt update && sudo apt install yarn
+            
+      - restore_cache:
+          keys:
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+
+      - run:
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --deployment
+
+      - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          keys:
+            - rails-demo-yarn-{{ checksum "yarn.lock" }}
+            - rails-demo-yarn-
+
+      - run:
+          name: Install yard dependencies
+          command: |
+            bin/yarn install
+            bin/webpack
+
+      - save_cache:
+          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Create DB
+          command: |
+            cp config/database.yml.ci config/database.yml
+            bin/rails db:create
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Run rspec in parallel
+          command: bundle exec rspec spec
+
+      - store_test_results:
+          path: test_results
+ 

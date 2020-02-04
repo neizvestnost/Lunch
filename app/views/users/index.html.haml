@@ -1,0 +1,6 @@
+= header(                           |
+    header_text: "Users in system", |
+    color: "success",               |
+  )                                 |
+.container-additional-style.w-25.mt-3
+  = render("users_list", users: @users, pagy: @pagy)

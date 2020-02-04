@@ -1,0 +1,6 @@
+- menu_collection.each do |menu_item|
+  .d-flex.justify-content-around.dish-item-wrapper
+    .item-name.font-text-black.slide-in-bck-left{"data-item-name": "#{menu_item.name}"}= menu_item.name
+    .item-price.font-text-black.bounce-in-top{"data-item-price": "#{menu_item.price}"}= menu_item.price
+    - if current_user.user?
+      = f.input_field input_name, as: :boolean, label: false, checked_value: menu_item.id, unchecked_value: '', class: "orders", data: { select: data_name }

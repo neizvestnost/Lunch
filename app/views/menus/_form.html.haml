@@ -1,0 +1,12 @@
+= simple_form_for menu_item do |f|
+  .form-group
+    = f.input :name, class: "form-control"
+  .form-group
+    = f.input :course, collection: Menu.courses.keys, selected: :first, class: "form-control"
+  .form-group
+    = f.label :day
+    = f.text_field :day, value: Time.zone.now.strftime("%A"), class: "form-control", disabled: true
+  .form-group
+    = f.input :price, class: "form-control", input_html: { min: "0" }
+  .actions
+    = f.button :submit, "Add item", class: "btn btn-outline-primary"

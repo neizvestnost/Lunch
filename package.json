@@ -1,0 +1,19 @@
+{
+  "name": "LunchOrdering",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "^4.0.7",
+    "bootstrap": "4.3.1",
+    "handlebars": "^4.5.3",
+    "handlebars-loader": "^1.7.1",
+    "i18n-js": "^3.5.0",
+    "jquery": "^3.4.1",
+    "jquery-ujs": "^1.2.2",
+    "popper.js": "^1.15.0",
+    "rails-ujs": "^5.2.3",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.8.1"
+  }
+}

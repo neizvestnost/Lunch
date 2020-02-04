@@ -1,0 +1,52 @@
+= simple_form_for(               |
+    menus_facade.new_order,      |
+    url: orders_path,            |
+    authenticity_token: true,    |
+    data: { section: "replace" } |
+  ) do |f|                       |
+  .d-flex.justify-content-around.w-100
+    %h2.alert-primary.dish-header Main menu
+    %h2.alert-primary.dish-header Appetizer menu
+    %h2.alert-primary.dish-header Drink menu
+  .d-flex.justify-content-around.w-100
+    .dish-wrapper
+      = render(                                    |
+          "menu_collection",                       |
+          menu_collection: menus_facade.main_menu, |
+          input_name: :main_dish_id,               |
+          f: f,                                    |
+          data_name: "order-main-dish"             |
+        )                                          |
+    .dish-wrapper
+      = render(                                         |
+          "menu_collection",                            |
+          menu_collection: menus_facade.appetizer_menu, |
+          input_name: :appetizer_dish_id,               |
+          f: f,                                         |
+          data_name: "order-appetizer-dish"             |
+        )                                               |
+    .dish-wrapper
+      = render(                                     |
+          "menu_collection",                        |
+          menu_collection: menus_facade.drink_menu, |
+          input_name: :drink_dish_id,               |
+          f: f,                                     |
+          data_name: "order-drink-dish"             |
+        )                                           |
+  = f.hidden_field :blank, value: "", id: "blank-order"
+  .card.d-none.w-25.ml-auto.mr-auto
+    .card-header
+      Your order
+    .card-body
+      %h5.card-title Main meal
+      %ul.card-text.d-flex.mb-2.order-main-dish
+        %li.card-text.selected-item{"data-price" => "0"} No selected 0.00 UAH
+      %h5.card-title Appetizer meal
+      %ul.card-text.d-flex.mb-2.order-appetizer-dish
+        %li.card-text.selected-item{"data-price" => "0"} No selected 0.00 UAH
+      %h5.card-title Drink
+      %ul.card-text.d-flex.mb-2.order-drink-dish
+        %li.card-text.selected-item{"data-price" => "0"} No selected 0.00 UAH
+      %hr.my-4/
+      %h5.card-title.order-total-cost Total coast 0.00 UAH
+      = f.submit "Submit order", class: "btn btn-primary ml-auto"

@@ -1,0 +1,7 @@
+= header(                    |
+    header_text: "Add item", |
+    color: "info",           |
+  )                          |
+.container-fluid.mt-2
+  .container.d-flex.justify-content-center.align-items-center
+    = render("form", menu_item: @menu_item)

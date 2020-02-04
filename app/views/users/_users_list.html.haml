@@ -1,0 +1,11 @@
+.card.p-3{"data-section" => "replace-users"}
+  %h5.card-header Users
+  - users.each do |user|
+    .card.mt-3.mb-3
+      .card-body
+        %h5.card-title= user.name
+        %p.card-text= user.email
+        %p.card-text
+          %small.text-muted
+            Last sign in at #{user.last_sign_in_at}
+  != pagy_bootstrap_nav(pagy)

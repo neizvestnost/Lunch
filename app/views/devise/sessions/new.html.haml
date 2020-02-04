@@ -1,0 +1,29 @@
+= header(                                   |
+    header_text: "Lunch Ordering",          |
+    color: "dark",                          |
+    button_text: "Sign up",                 |
+    button_path: new_user_registration_path |
+  )                                         |
+.container
+  .row
+    .col-sm-9.col-md-7.col-lg-5.mx-auto
+      .card.card-signin.my-5
+        .card-body
+          %h5.card-title.text-center Sign In
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .form-label-group
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+              = f.label :email
+            .form-label-group
+              = f.password_field :password, autocomplete: "current-password", class: "form-control"
+              = f.label :password
+            - if devise_mapping.rememberable?
+              .custom-control.custom-checkbox.mb-3
+                = f.check_box :remember_me, class: "custom-control-input"
+                = f.label :remember_me, class: "custom-control-label"
+            = f.submit "Log in", class: "btn btn-lg btn-primary btn-block text-uppercase"
+          = link_to(                                                       |
+              "Sign in with Google",                                       |
+              user_google_oauth2_omniauth_authorize_path,                  |
+              class: "btn btn-lg btn-google btn-block text-uppercase mt-2" |
+            )                                                              |

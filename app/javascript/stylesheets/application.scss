@@ -1,0 +1,17 @@
+@import "bootstrap/scss/bootstrap";
+@import "toastr/build/toastr.min"; 
+@import "layouts.scss";
+@import "sign_in.scss";
+@import "fonts.scss";
+@import "menu.scss";
+@import "header.scss";
+@import "403.scss";
+@import "users.scss";
+@import "orders.scss";
+@import "registration.scss";
+
+@font-face {
+  font-family: HeaderFont;
+  src: url('../fonts/15556.ttf') format('truetype');
+ }
+ 
